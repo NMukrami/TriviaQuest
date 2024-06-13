@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Home - TriviaQuest{% endblock %}
-
 {% block content %}
-    <h2>Welcome to TriviaQuest!</h2>
-    <p>Your ultimate destination for trivia challenges.</p>
+<h1>Welcome to TriviaQuest!</h1>
+<form action="{{ url_for('main.quiz') }}" method="post">
+    <label for="amount">How many questions do you want (1-50):</label>
+    <input type="number" id="amount" name="amount" min="1" max="50" required>
+    <button type="submit">Start Quiz</button>
+</form>
 {% endblock %}
