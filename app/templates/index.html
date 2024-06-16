@@ -1,10 +1,20 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block title %}Home - Trivia Quiz{% endblock %}
 
 {% block content %}
-<h1>Welcome to TriviaQuest!</h1>
-<form action="{{ url_for('main.quiz') }}" method="post">
-    <label for="amount">How many questions do you want (1-50):</label>
-    <input type="number" id="amount" name="amount" min="1" max="50" required>
-    <button type="submit">Start Quiz</button>
-</form>
+    <h2>How many questions do you want to answer? (1-50)</h2>
+    <form method="POST" action="{{ url_for('main.quiz') }}">
+        <input type="number" name="num_questions" min="1" max="50" required>
+        <button type="submit">Start Quiz</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 {% endblock %}

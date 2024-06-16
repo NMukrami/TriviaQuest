@@ -1,15 +1,13 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block title %}Question{% endblock %}
 
 {% block content %}
-<div class="question">
-    <p>{{ question|safe }}</p>
-    <form action="{{ url_for('main.question') }}" method="post">
+    <h2>{{ question }}</h2>
+    <form method="POST" action="{{ url_for('main.question') }}">
         {% for option in options %}
-            <label>
-                <input type="radio" name="answer" value="{{ option }}" required> {{ option|safe }}
-            </label><br>
+            <input type="radio" name="answer" value="{{ option }}" required> {{ option }}<br>
         {% endfor %}
         <button type="submit">Next</button>
     </form>
-</div>
 {% endblock %}

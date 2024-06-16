@@ -1,11 +1,12 @@
 from flask import Flask
 import random
+from app.config import Config
+from app.routes.main import main as main_blueprint
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.Config')
+    app.config.from_object(Config)
 
-    from .routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     @app.template_filter('shuffle')
