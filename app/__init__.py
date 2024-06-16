@@ -1,7 +1,7 @@
 from flask import Flask
 import random
 from app.config import Config
-from app.routes.main import main as main_blueprint
+from app.routes.main import app as main_blueprint
 
 def create_app():
     app = Flask(__name__)

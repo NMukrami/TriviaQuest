@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Question{% endblock %}
+{% block title %}Question {{ question_number }}{% endblock %}
 
 {% block content %}
-    <h2>{{ question }}</h2>
+    <h2>Question {{ question_number }} of {{ total_questions }}</h2>
+    <h3>{{ question }}</h3>
     <form method="POST" action="{{ url_for('main.question') }}">
         {% for option in options %}
             <input type="radio" name="answer" value="{{ option }}" required> {{ option }}<br>
