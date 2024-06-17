@@ -3,12 +3,14 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h2>Welcome to the Quiz!</h2>
-    <form method="POST" action="{{ url_for('main.quiz') }}">
+    <h2>Welcome to Trivia Quest</h2>
+    <form method="POST" autocomplete="off" action="{{ url_for('main.quiz') }}">
         <label for="num_questions">Enter number of questions (1-50):</label>
 
-        <input type="number" id="num_questions" name="num_questions" min="1" max="50"required>
+        <input class="form-control me-sm-2 mt-3" type="number" id="num_questions" name="num_questions" min="1" max="50"required>
 
-        <button type="submit">Start Quiz</button>
+        <div class="d-grid gap-2 mt-4 center">
+            <button type="submit" class="btn btn-lg btn-secondary" >Start Quiz</button>
+          </div>
     </form>
 {% endblock %}

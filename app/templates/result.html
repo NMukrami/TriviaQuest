@@ -3,6 +3,13 @@
 {% block title %}Result{% endblock %}
 
 {% block content %}
-    <h2>{{ score }}</h2>
-    <a href="{{ url_for('main.home') }}">Go back to home</a>
+
+    
+    <div class="d-grid gap-2 p-4 text-center">
+        <h2>Your Score is <br> {{ score }}/{{total_questions}}</h2>
+        
+            
+        <a href="{{ url_for('main.home') }}" class="btn btn-lg btn-secondary">Play Again</a>
+    </div>
+    
 {% endblock %}

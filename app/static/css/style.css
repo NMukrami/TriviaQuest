@@ -12,3 +12,66 @@ header, footer {
 main {
     padding: 2em;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    flex-shrink: 0;
+}
+
+.vh-100 {
+    flex-grow: 1;
+}
+
+.responsive-box {
+    width: 100%;
+    max-width: 500px; /* You can adjust the max-width as needed */
+    padding: 20px;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.responsive-box {
+    max-width: 90%;
+    width: 100%;
+    height: auto;
+    max-height: 90%;
+    overflow: auto;
+    padding: 20px;
+}
+
+.container {
+    width: 80%; /* Adjust width as needed */
+    margin: 0 auto; /* Center align the container */
+    text-align: justify; /* Justify text */
+}
+@media (min-width: 576px) {
+    .responsive-box {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 768px) {
+    .responsive-box {
+        max-width: 70%;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive-box {
+        max-width: 60%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .responsive-box {
+        max-width: 50%;
+    }
+}

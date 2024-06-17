@@ -5,17 +5,20 @@ import random
 
 app = Blueprint('main', __name__)
 
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
     if request.method == 'POST':
         num_questions = request.form.get('num_questions')
-        if not num_questions.isdigit() or not (1 <= int(num_questions) <= 50):
-            flash("Please enter a valid number between 1 and 50.")
-            return redirect(url_for('main.home'))
 
         session['questions'] = fetch_questions(int(num_questions))
         session['current_question_index'] = 0  # Initialize the question index
@@ -24,11 +27,14 @@ def quiz():
 
     return render_template('quiz.html')
 
+
+
 @app.route('/question', methods=['GET', 'POST'])
 def question():
     questions = session.get('questions')
     current_question_index = session.get('current_question_index')
 
+    # check if user route to /question
     if questions is None or current_question_index is None or current_question_index >= len(questions):
         return redirect(url_for('main.home'))
 
@@ -39,18 +45,19 @@ def question():
             session['current_question_index'] += 1  # Increment the index only after saving the answer
             if session['current_question_index'] >= len(questions):
                 return redirect(url_for('main.result'))
-
+            
         return redirect(url_for('main.question'))
 
     current_question = questions[current_question_index]
     options = current_question['incorrect_answers'] + [current_question['correct_answer']]
     options = list(map(html.unescape, options))
     random.shuffle(options)
-
+    question = html.unescape(current_question['question'])
     question_number = current_question_index + 1
     total_questions = len(questions)
     print(current_question)
-    return render_template('question.html', question=html.unescape(current_question['question']), options=options, question_number=question_number, total_questions=total_questions)
+    return render_template('question.html', question=question, options=options, question_number=question_number, total_questions=total_questions)
+
 
 @app.route('/result')
 def result():
@@ -67,9 +74,10 @@ def result():
             score += 1
 
     total_questions = len(questions)
-    final_score = f"Your Score is: {score}/{total_questions}"
+  
 
-    return render_template('result.html', score=final_score)
+    return render_template('result.html', score=score, total_questions=total_questions )
+
 
 def fetch_questions(amount):
     api_url = f"https://opentdb.com/api.php?amount={amount}&category=18&type=multiple"
@@ -81,6 +89,7 @@ def fetch_questions(amount):
         question['incorrect_answers'] = [html.unescape(ans) for ans in question['incorrect_answers']]
         question['question'] = html.unescape(question['question'])
     return questions
+
 
 @app.route('/trivia', methods=['GET'])
 def get_trivia():
